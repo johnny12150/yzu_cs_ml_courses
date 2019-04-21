@@ -2,17 +2,22 @@
 
 ### Model 準確度比較
 
-|          | Feature                                              | Scaler | Accuracy (NB) |
-|:--------:|:----------------------------------------------------:|:------:|:-------------:|
-| baseline | Age, Sex                                             | x      | 0.736         |
-|          | Age, Sex                                             | ✔︎     | 0.45          |
-|          | Age, Sex, Embarked(ohe)                              | x      | 0.65          |
-|          | Age, Sex, Embarked                                   | x      | 0.765         |
-|          | Age, Sex, Embarked, TitleGroup(le)                   | x      | 0.77          |
-| Noise出現  | Age, Sex, Embarked, **Pclass**, TitleGroup(le)       | x      | 0.734         |
-|          | Age, Sex, Embarked, **Pclass(ohe)**, TitleGroup(le)  | x      | 0.7511        |
-|          | Age, Sex, Embarked, Pclass(ohe), **TitleGroup(ohe)** | x      | 0.72          |
-|          |                                                      |        |               |
+|          | Feature                                                           | Scaler | Accuracy (NB) |
+|:--------:|:-----------------------------------------------------------------:|:------:|:-------------:|
+| baseline | Age, Sex                                                          | x      | 0.736         |
+|          | Age, Sex                                                          | ✔︎     | 0.45          |
+|          | Age, Sex, Embarked(ohe)                                           | x      | 0.65          |
+|          | Age, Sex, Embarked                                                | x      | 0.765         |
+|          | Age, Sex, Embarked, TitleGroup(le)                                | x      | 0.77          |
+| Noise出現  | Age, Sex, Embarked, **Pclass**, TitleGroup(le)                    | x      | 0.734         |
+|          | Age, Sex, Embarked, **Pclass(ohe)**, TitleGroup(le)               | x      | 0.7511        |
+|          | Age, Sex, Embarked, Pclass(ohe), **TitleGroup(ohe)**              | x      | 0.72          |
+|          | Age, Sex, Embarked, TitleGroup(le), SibSp                         | x      | 0.6387        |
+| 要一起      | Age, Sex, Embarked, TitleGroup(le), **SibSp, Parch**              | x      | 0.763         |
+|          | Age, Sex, Embarked, **Pclass(ohe)**, TitleGroup(le), SibSp, Parch | x      | 0.755         |
+| **Best** | Age, Sex, Embarked, Pclass, TitleGroup(le), SibSp, Parch          | x      | **0.7727**    |
+|          | Age, Sex, Embarked, TitleGroup(le), **Fare**                      | x      | 0.65          |
+|          | Age, Sex, Embarked, TitleGroup(le), **Fare**                      | ✔︎     | 0.7368        |
 
 ### 觀察與心得
 
