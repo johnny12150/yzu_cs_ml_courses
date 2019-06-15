@@ -4,8 +4,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 
-train = pd.read_csv("../input/train.csv")
-test = pd.read_csv("../input/test.csv")
+train = pd.read_csv("train.csv")
+test = pd.read_csv("test.csv")
 
 X_train = train.drop('label', axis=1)
 Y_train = train['label'].copy()
@@ -17,13 +17,14 @@ test = test / 255.0
 X_train = X_train.values
 test = test.values
 
+# 減少feature可以快一些，但會犧牲準確度
 # from sklearn.decomposition import PCA
 # pca = PCA(.95)
 # pca.fit(X_train)
 # X_train = pca.transform(X_train)
 # test = pca.transform(test)
 
-# Y_trai要做oneHot
+# Y_train要做oneHot
 Y_train = pd.get_dummies(Y_train)
 Y_train = Y_train.values
 test_dump = Y_train[:28000]
@@ -58,19 +59,6 @@ class TreeProperties(object):
         self.decay_penality = decay_penality
         self.regularisation_penality = regularisation_penality
 
-
-# class PruningCondition(object):
-#     def _init__(self):
-#         pass
-#
-#     @staticmethod
-#     def prune(depth,tree):
-#         '''
-#         :param depth:
-#         :param tree:
-#         :return:
-#         '''
-#         return (depth>=tree.params.max_depth)
 
 class Node(object):
     def __init__(self,id,depth,pathprob,tree):
@@ -269,7 +257,7 @@ batch_size = 32
 # 驗證時用
 val_batch_size = 256
 
-
+# 建構高度不超過6的樹
 tree = SoftDecisionTree(max_depth=6,n_features=n_features,n_classes=n_classes,max_leafs=None)
 tree.build_tree()
 
@@ -321,7 +309,6 @@ with tf.Session() as sess:
             
     # 做預測
     predictions = tree.predict(X=test,y=test_dump,sess=sess)
-    print(predictions)
-    sub = pd.read_csv("../input/sample_submission.csv")
+    sub = pd.read_csv("sample_submission.csv")
     sub['Label'] = predictions
     sub.to_csv('CART_model_sub.csv',index=False)
